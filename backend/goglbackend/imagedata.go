@@ -38,9 +38,9 @@ func (b *GoGLBackend) GetImageData(x, y, w, h int) *image.RGBA {
 
 	rgba := image.NewRGBA(image.Rect(x, y, x+w, y+h))
 	for cy := y; cy < y+h; cy++ {
-		bp := (int(vp[3])-h+cy)*int(vp[2])*3 + x*3
+		bp := (int(vp[3])-h-cy)*int(vp[2])*3 + x*3
 		for cx := x; cx < x+w; cx++ {
-			rgba.SetRGBA(cx, y+h-1-cy, color.RGBA{R: b.imageBuf[bp], G: b.imageBuf[bp+1], B: b.imageBuf[bp+2], A: 255})
+			rgba.SetRGBA(cx, cy, color.RGBA{R: b.imageBuf[bp], G: b.imageBuf[bp+1], B: b.imageBuf[bp+2], A: 255})
 			bp += 3
 		}
 	}
